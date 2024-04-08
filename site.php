@@ -1,11 +1,16 @@
-<?php 
+<?php
 
-use \Hcode\PageAdmin;
+use \Hcode\Page;
+use \Hcode\Model\Product;
 
 
-$app->get('/admin', function() {
-	$page = new Hcode\PageAdmin();
+$app->get('/', function () {
 
-	$page->setTpl("index");
+	$products = Product::listAll();
 
+	$page = new Page();
+
+	$page->setTpl("index", [
+		'products'=>Product::checkList($products)
+	]);
 });
