@@ -2,8 +2,7 @@
 use \Hcode\PageAdmin;
 use \Hcode\Model\User;
 use \Hcode\Model\Category;
-use Hcode\Model\Product;
-use \Hcode\Page;
+use \Hcode\Model\Product;
 
 
 
