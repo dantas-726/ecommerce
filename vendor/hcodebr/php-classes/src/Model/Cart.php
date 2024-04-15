@@ -103,8 +103,10 @@ class Cart extends Model
 	}
 
 	public function addProduct(Product $product){
-    $sql = new Sql();
-		$sql->query("INSERT INTO tb_cartsproducts (idcart, idproduct) VALUES(:idcart, :idproduct, )", [
+
+		$sql = new Sql();
+
+		$sql->query("INSERT INTO tb_cartsproducts (idcart, idproduct) VALUES(:idcart, :idproduct)", [
 			':idcart' => $this->getidcart(),
 			':idproduct' => $product->getidproduct()
 		]);
@@ -116,14 +118,14 @@ class Cart extends Model
 
 		$sql = new Sql();
 		if ($all) {
-
-			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL", [
+			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart 
+      AND idproduct = :idproduct AND dtremoved IS NULL", [
 				':idcart' => $this->getidcart(),
 				':idproduct' => $product->getidproduct()
 			]);
 		} else {
-
-			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1", [
+			$sql->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart = :idcart 
+      AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1", [
 				':idcart' => $this->getidcart(),
 				':idproduct' => $product->getidproduct()
 			]);
