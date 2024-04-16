@@ -120,7 +120,7 @@ class User extends Model {
 		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
 			":desperson" => ($this->getdesperson()),
 			":deslogin" => $this->getdeslogin(),
-			":despassword" => $this->getdespassword(),
+			":despassword" => User::getPasswordHash($this->getdespassword()),
 			":desemail" => $this->getdesemail(),
 			":nrphone" => $this->getnrphone(),
 			":inadmin" => $this->getinadmin()
@@ -155,7 +155,7 @@ class User extends Model {
 			":iduser" => $this->getiduser(),
 			":desperson" => $this->getdesperson(),
 			":deslogin" => $this->getdeslogin(),
-			":despassword" => $this->getdespassword(),
+			":despassword" => User::getPasswordHash($this->getdespassword()),
 			":desemail" => $this->getdesemail(),
 			":nrphone" => $this->getnrphone(),
 			":inadmin" => $this->getinadmin()
@@ -297,5 +297,20 @@ class User extends Model {
 		$_SESSION[User::ERROR_REGISTER] = NULL;
 
 }
+
+	public static function checkLoginExist($login) {
+		$sql = new Sql();
+		$results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :deslogin", [
+			':deslogin'=>$login
+
+		]);
+		return (count($results) > 0);
+	}
+
+	public static function getPasswordHash($password){
+		return password_hash($password, PASSWORD_DEFAULT, [
+			'cost'=>12
+		]);
+	}
 
 }
