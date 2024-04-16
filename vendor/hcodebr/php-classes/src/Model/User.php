@@ -15,6 +15,7 @@ class User extends Model {
 	const ERROR_REGISTER = "UserErrorRegister";
 	const SUCCESS = "UserSucesss";
 
+
 	public static function getFromSession(){
 
 		$user = new User();
@@ -146,11 +147,8 @@ class User extends Model {
 		$this->setData($data);
 	}
 
-	public function update()
-	{
-
+	public function update(){
 		$sql = new Sql();
-
 		$results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
 			":iduser" => $this->getiduser(),
 			":desperson" => $this->getdesperson(),
