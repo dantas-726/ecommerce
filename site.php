@@ -1,6 +1,6 @@
 <?php
 
-use \Hcode\Page;	
+use \Hcode\Page;
 use \Hcode\Model\Product;
 use \Hcode\Model\Category;
 use \Hcode\Model\Cart;
@@ -23,7 +23,7 @@ $app->get('/', function () {
 
 $app->get("/categories/:idcategory", function($idcategory){
 
-	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1; 
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 	$category = new Category();
 	$category->get((int)$idcategory);
 	$pagination = $category->getProductsPage($page);
@@ -160,7 +160,7 @@ $app->get("/checkout", function () {
 $app->get("/login", function(){
 
 	$page = new Page();
-	$page->setTpl("login", [ 
+	$page->setTpl("login", [
 		'error'=>User::getError(),
 		'errorRegister'=>User::getErrorRegister(),
 		'registerValues' => (isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name' => '', 'email' => '', 'phone' => '']
@@ -276,6 +276,10 @@ $app->post("/profile", function () {
 		exit;
 	}
 
+	if(isset($_POST['desspassord']) || !$_POST('despassord') == '') {
+		$_POST['desspassord'] = $_POST['desspassord'];
+	}
+
 	$user = User::getFromSession();
 
 	if ($_POST['desemail'] !== $user->getdesemail()) {
@@ -289,7 +293,6 @@ $app->post("/profile", function () {
 	}
 
 	$_POST['inadmin'] = $user->getinadmin();
-	$_POST['despassword'] = $user->getdespassword();
 	$_POST['deslogin'] = $_POST['desemail'];
 
 	$user->setData($_POST);
