@@ -276,8 +276,9 @@ $app->post("/profile", function () {
 		exit;
 	}
 
-	if(isset($_POST['desspassord']) || !$_POST('despassord') == '') {
+	if(isset($_POST['despassword']) || $_POST['despassword'] === '') {
 		$_POST['desspassord'] = $_POST['desspassord'];
+
 	}
 
 	$user = User::getFromSession();
@@ -293,6 +294,7 @@ $app->post("/profile", function () {
 	}
 
 	$_POST['inadmin'] = $user->getinadmin();
+	$_POST['despassword'] = $user->getdespassword();
 	$_POST['deslogin'] = $_POST['desemail'];
 
 	$user->setData($_POST);
