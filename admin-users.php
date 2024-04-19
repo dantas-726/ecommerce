@@ -78,7 +78,7 @@ $app->get("/admin/users", function() {
 
 		$pagination = User::getPage($page, 2);
 
-	}
+	}	
 
 	$pages = [];
 
